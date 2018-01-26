@@ -34,8 +34,8 @@ class TestDLNAFS(unittest.TestCase):
             self.vf = ['Video','Alle Videos']
         else:
             self.pf = ['Pictures', 'Alle Bilder']
-            self.mf = ['Music', 'Alle Titel']
-            self.vf = ['Video', 'Alle Videos']
+            self.mf = ['Music', 'All Music']
+            self.vf = ['Video', 'All Video]
         return DLNAFS()
 
     @classmethod
@@ -152,7 +152,7 @@ class TestDLNAFS(unittest.TestCase):
 
         print(self.fs.listdir(os.path.join('/', self.srvp, self.vf[0])))
         print(self.fs.listdir(os.path.join('/', self.srvp, self.mf[0])))
-        print(self.fs.listdir(os.path.join('/', self.srvp, self.af[0])))
+        print(self.fs.listdir(os.path.join('/', self.srvp, self.pf[0])))
 
         self.assertEqual(self.fs.listdir(os.path.join('/', self.srvp, self.vf[0], self.vf[1])), ['test_video'])
         self.assertEqual(self.fs.listdir(os.path.join('/', self.srvp, self.mf[0], self.mf[1])), ['test_audio'])
