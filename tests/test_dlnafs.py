@@ -137,11 +137,7 @@ class TestDLNAFS(unittest.TestCase):
                              self.fs.listdir('./'),
                              filelist)
 
-        Check
-        paths
-        are
-        unicode
-        strings
+        # Check paths are unicode strings
 
         for name in self.fs.listdir('/'):
             print(repr(name))
