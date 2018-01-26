@@ -119,8 +119,8 @@ class DLNAFS(FS):
         if _path in [u'', u'.', u'/', u'./']:
             for device in self.devices:
                 if six.PY2:
-                    device = device
-                outlist.append(u''.join(device))
+                    device = u''.join(str(device))
+                outlist.append(device)
             return outlist
 
         pathiter = iteratepath(_path)
