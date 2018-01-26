@@ -141,6 +141,8 @@ class DLNAFS(FS):
 
         for name in parent:
             outlist.append(name)
+
+        print(outlist)
         return outlist
 
     def getinfo(self, path, namespaces=None):
