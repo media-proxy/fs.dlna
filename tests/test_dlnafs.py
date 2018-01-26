@@ -150,6 +150,10 @@ class TestDLNAFS(unittest.TestCase):
         assert self.mf[0] in mainfolder
         assert self.vf[0] in mainfolder
 
+        print(self.fs.listdir(os.path.join('/', self.srvp, self.vf[0]))
+        print(self.fs.listdir(os.path.join('/', self.srvp, self.mf[0]))
+        print(self.fs.listdir(os.path.join('/', self.srvp, self.af[0]))
+
         self.assertEqual(self.fs.listdir(os.path.join('/', self.srvp, self.vf[0], self.vf[1])), ['test_video'])
         self.assertEqual(self.fs.listdir(os.path.join('/', self.srvp, self.mf[0], self.mf[1])), ['test_audio'])
         self.assertEqual(self.fs.listdir(os.path.join('/', self.srvp, self.pf[0], self.pf[1])), ['test_picture'])
