@@ -130,6 +130,7 @@ class TestDLNAFS(unittest.TestCase):
         # Check paths are unicode strings
 
         for name in self.fs.listdir('/'):
+            print(name)
             self.assertIsInstance(name, text_type)
 
         mainfolder = self.fs.listdir(self.srvp)
@@ -142,7 +143,6 @@ class TestDLNAFS(unittest.TestCase):
         self.assertEqual(self.fs.listdir(os.path.join('/', self.srvp, self.vf[0], self.vf[1])), ['test_video'])
         self.assertEqual(self.fs.listdir(os.path.join('/', self.srvp, self.mf[0], self.mf[1])), ['test_audio'])
         self.assertEqual(self.fs.listdir(os.path.join('/', self.srvp, self.pf[0], self.pf[1])), ['test_picture'])
-
 
         with self.assertRaises(errors.ResourceNotFound):
             self.fs.listdir(os.path.join('/', self.srvp, 'foobar'))
