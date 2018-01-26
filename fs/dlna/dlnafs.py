@@ -20,6 +20,9 @@ class DLNAFS(FS):
         self.devices = []
         self.scan()
 
+    def __str__(self):
+        return u'DLNAFS'
+
     def scan(self, timeout=2):
         self.devices = {}
 
