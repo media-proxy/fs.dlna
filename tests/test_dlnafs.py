@@ -120,6 +120,7 @@ class TestDLNAFS(unittest.TestCase):
 
         # Check aliases for root
         filelist = self.fs.listdir('/')
+        print('#############', filelist)
         self.assertEqual(self.fs.listdir('.'), filelist)
         self.assertEqual(self.fs.listdir('./'), filelist)
 
