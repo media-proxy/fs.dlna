@@ -22,6 +22,7 @@ before_install:
 - sudo /etc/init.d/minidlna start
 - sudo /etc/init.d/minidlna force-reload
 - sleep 3
+- ls /tmp
 - cat /tmp/minidlna.log
 - sleep 3
 - pip install -U setuptools wheel
