@@ -11,6 +11,11 @@ python:
 - pypy
 - pypy-5.3.1
 
+addons:
+  apt:
+    packages:
+    - minidlna
+
 before_install:
 - pip install -U setuptools wheel
 

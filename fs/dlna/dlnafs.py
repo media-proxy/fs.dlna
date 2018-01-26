@@ -132,6 +132,8 @@ class DLNAFS(FS):
             #     print('Error',entry,'not in',parent)
             # if not parent[entry]['folder']:
             #     raise errors.DirectoryExpected(_path)
+            if not entry in parent:
+                raise errors.ResourceNotFound(_path)
             parent = self.parseall(device, parent[entry]['id'])
 
         for name in parent:
@@ -196,12 +198,6 @@ class DLNAFS(FS):
                         "type": int(ResourceType.file),
                     }
 
-            # if 'details' in namespaces:
-            #
-            #     info_dict['details'] = {
-            #         "type": int(ResourceType.file),
-            #         "size": stream.get_filesize(),
-            #     }
 
             print(Info(info_dict))
             return Info(info_dict)
@@ -250,10 +246,3 @@ class DLNAFS(FS):
     @classmethod
     def setinfo(self, *args, **kwargs):
         raise errors.Unsupported()
-
-# d = DLNAFS()
-#
-# print (d.listdir('/'))
-# print (d.listdir('/Universal Media Server'))
-# print (d.listdir('/Universal Media Server/Pictures'))
-# ~ print (len(d.listdir('/Universal Media Server/Pictures')))
