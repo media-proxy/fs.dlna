@@ -23,7 +23,7 @@ before_install:
 - sleep 3
 - sudo service minidlna status
 - ls /tmp
-- journalctl -R
+#- journalctl -R
 #- cat /tmp/minidlna.log
 - sleep 3
 - pip install -U setuptools wheel
