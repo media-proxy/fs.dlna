@@ -18,14 +18,7 @@ addons:
 
 before_install:
 - echo $TRAVIS_BUILD_DIR
-- sudo echo "port=8200
-  log_dir=/tmp/
-  log_level=debug
-  friendly_name=test_server
-  inotify=yes
-  db_dir=/tmp/
-  media_dir=${$TRAVIS_BUILD_DIR}/tests/data"
-
+- sudo echo "port=8200\nlog_dir=/tmp/\nlog_level=debug\nfriendly_name=test_server\ninotify=yes\ndb_dir=/tmp/\nmedia_dir=${$TRAVIS_BUILD_DIR}/tests/data"
 - /usr/sbin/minidlnad -f $confpath -P /tmp/minidlna.pid
 - /usr/sbin/minidlnad -R -r
 - pip install -U setuptools wheel
