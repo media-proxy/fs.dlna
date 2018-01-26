@@ -17,8 +17,8 @@ addons:
     - minidlna
 
 before_install:
-- minidlna -f tests/data/minidlna.conf -P /tmp/minidlna.pid
-- minidlna -R -r
+- /usr/bin/minidlna -f tests/data/minidlna.conf -P /tmp/minidlna.pid
+- /usr/bin/minidlna -R -r
 - pip install -U setuptools wheel
 
 install:
