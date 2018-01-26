@@ -5,6 +5,7 @@ from __future__ import with_statement
 
 import json
 
+import six
 import upnpclient
 import xmltodict
 from fs.path import iteratepath
@@ -117,6 +118,8 @@ class DLNAFS(FS):
         print('listdir', _path)
         if _path in [u'', u'.', u'/', u'./']:
             for device in self.devices:
+                if six.PY2:
+                    device = device.encode('utf-8')
                 outlist.append(device)
             return outlist
 

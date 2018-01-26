@@ -21,7 +21,12 @@ class TestDLNAFS(unittest.TestCase):
     def make_fs(self):
         # Return an instance of your FS object here
         lang = locale.getdefaultlocale()[0]
-        self.srvp = '/test_server'
+        dlnafs = DLNAFS()
+        servers = dlnafs.listdir('/')
+        if len(servers) == 1:
+            self.srvp = '/%s' % servers[0]
+        else:
+            self.srvp = '/test_server'
 
         if lang == 'de_DE':
             self.pf = ['Bilder','Alle Bilder']
