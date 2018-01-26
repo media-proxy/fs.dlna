@@ -18,8 +18,8 @@ addons:
 
 before_install:
 - echo $TRAVIS_BUILD_DIR
-- sudo echo "port=8200\nlog_dir=/tmp/\nlog_level=debug\nfriendly_name=test_server\ninotify=yes\ndb_dir=/tmp/\nmedia_dir=${TRAVIS_BUILD_DIR}/tests/data" > /etc/minidlna.conf
 - cat /etc/minidlna.conf
+- sudo echo "port=8200\nlog_dir=/tmp/\nlog_level=debug\nfriendly_name=test_server\ninotify=yes\ndb_dir=/tmp/\nmedia_dir=${TRAVIS_BUILD_DIR}/tests/data" > /etc/minidlna.conf
 #- sudo service minidlna start
 - sleep 3
 - sudo service minidlna status
