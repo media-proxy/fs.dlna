@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 
 import io
 import json
+import locale
+import os
 import unittest
 
 import six
@@ -13,14 +15,14 @@ from six import text_type
 # from fs.opener import open_fs
 from fs.dlna import DLNAFS
 
-import os
-import locale
 
 class TestDLNAFS(unittest.TestCase):
 
     def make_fs(self):
         # Return an instance of your FS object here
         lang = locale.getdefaultlocale()[0]
+        self.srvp = '/test_server'
+
         if lang == 'de_DE':
             self.pf = ['Bilder','Alle Bilder']
             self.mf = ['Musik','Alle Titel']
@@ -126,32 +128,30 @@ class TestDLNAFS(unittest.TestCase):
                              filelist)
 
         # Check paths are unicode strings
-        testname = '/test_server'
+
         for name in self.fs.listdir('/'):
             self.assertIsInstance(name, text_type)
 
-
-        mainfolder = self.fs.listdir(testname)
+        mainfolder = self.fs.listdir(self.srvp)
         print (mainfolder)
 
         assert self.pf[0] in mainfolder
         assert self.mf[0] in mainfolder
         assert self.vf[0] in mainfolder
 
+        self.assertEqual(self.fs.listdir(os.path.join('/', self.srvp, self.vf[0], self.vf[1])), ['test_video'])
+        self.assertEqual(self.fs.listdir(os.path.join('/', self.srvp, self.mf[0], self.mf[1])), ['test_audio'])
+        self.assertEqual(self.fs.listdir(os.path.join('/', self.srvp, self.pf[0], self.pf[1])), ['test_picture'])
 
-        self.assertEqual(self.fs.listdir(os.path.join('/',testname,self.vf[0],self.vf[1])),['test_video'])
-        self.assertEqual(self.fs.listdir(os.path.join('/',testname,self.mf[0],self.mf[1])),['test_audio'])
-        self.assertEqual(self.fs.listdir(os.path.join('/',testname,self.pf[0],self.pf[1])),['test_picture'])
-
-
-        with self.assertRaises(errors.ResourceNotFound):
-            self.fs.listdir(os.path.join('/',testname,'foobar'))
 
         with self.assertRaises(errors.ResourceNotFound):
-            self.fs.listdir(os.path.join('/',testname,self.vf[0],'foobar'))
+            self.fs.listdir(os.path.join('/', self.srvp, 'foobar'))
 
         with self.assertRaises(errors.ResourceNotFound):
-            self.fs.listdir(os.path.join('/',testname,self.vf[0],self.vf[1],'foobar'))
+            self.fs.listdir(os.path.join('/', self.srvp, self.vf[0], 'foobar'))
+
+        with self.assertRaises(errors.ResourceNotFound):
+            self.fs.listdir(os.path.join('/', self.srvp, self.vf[0], self.vf[1], 'foobar'))
 
         # Check how to check this
         # with self.assertRaises(errors.DirectoryExpected):
@@ -249,7 +249,7 @@ class TestDLNAFS(unittest.TestCase):
         )
 
     def test_openbin(self):
-        testfile = '/Universal Media Server/Pictures/a/b/c/bmd.png'
+        testfile = os.path.join('/', self.srvp, self.vf[0], self.vf[1], 'test_video')
 
         # Read a binary file
         if not self.fs.isfile(testfile):

@@ -87,7 +87,7 @@ class DLNAFS(FS):
                 print(json.dumps(resinfo, indent=4))
                 continue
 
-            outdata[name]['thumb'] = resinfo['#text']
+            outdata[name]['url'] = resinfo['#text']
             # print(resinfo)
 
             if '@size' in resinfo:
