@@ -19,9 +19,9 @@ addons:
 before_install:
 - echo $TRAVIS_BUILD_DIR
 - sudo echo "port=8200\nlog_dir=/tmp/\nlog_level=debug\nfriendly_name=test_server\ninotify=yes\ndb_dir=/tmp/\nmedia_dir=${TRAVIS_BUILD_DIR}/tests/data"
-- sudo /etc/init.d/minidlna start
-- sudo /etc/init.d/minidlna force-reload
+- sudo service minidlna start
 - sleep 3
+- sudo service minidlna status
 - ls /tmp
 - cat /tmp/minidlna.log
 - sleep 3
