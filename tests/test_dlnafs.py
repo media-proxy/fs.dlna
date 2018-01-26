@@ -35,7 +35,7 @@ class TestDLNAFS(unittest.TestCase):
         else:
             self.pf = ['Pictures', 'Alle Bilder']
             self.mf = ['Music', 'All Music']
-            self.vf = ['Video', 'All Video]
+            self.vf = ['Video', 'All Video']
         return DLNAFS()
 
     @classmethod
