@@ -4,16 +4,19 @@ from __future__ import unicode_literals
 from __future__ import with_statement
 
 import json
+import os
 
 import six
 import upnpclient
 import xmltodict
 from fs.path import iteratepath
 
+from .seekable_http_file import SeekableHTTPFile
 from .. import errors
 from ..base import FS
 from ..enums import ResourceType
 from ..info import Info
+from ..iotools import RawWrapper
 
 
 class DLNAFS(FS):
@@ -36,12 +39,12 @@ class DLNAFS(FS):
 
     def parse(self, device, oid, start=0, count=100):
         xml = device.ContentDirectory.Browse(
-            ObjectID=oid,
-            BrowseFlag='BrowseDirectChildren',
-            Filter='*',
-            StartingIndex=start,
-            RequestedCount=count,
-            SortCriteria=''
+            ObjectID=str(oid),
+            BrowseFlag=u'BrowseDirectChildren',
+            Filter=u'*',
+            StartingIndex=str(start),
+            RequestedCount=str(count),
+            SortCriteria=u''
         )
 
         results = xmltodict.parse(xml['Result'], process_namespaces=True)
@@ -69,7 +72,9 @@ class DLNAFS(FS):
             outdata[name] = {'id': c['@id'], 'folder': True, 'title': c['http://purl.org/dc/elements/1.1/:title']}
 
         # Scan Items
+        print('################')
         print(json.dumps(items, indent=4))
+        print('################')
         for i in items:
             if not 'urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/:res' in i:
                 continue
@@ -83,7 +88,10 @@ class DLNAFS(FS):
                                 print('######', e)
                                 resinfo = e
 
+            extension = os.path.splitext(resinfo['#text'])[1]
             name = i['http://purl.org/dc/elements/1.1/:title'].replace(':', '').replace('/', '')
+            name = '%s%s' % (name, extension)
+
             outdata[name] = {'id': i['@id'], 'folder': False, 'title': i['http://purl.org/dc/elements/1.1/:title']}
 
             if type(resinfo) == list:
@@ -92,9 +100,35 @@ class DLNAFS(FS):
                 continue
 
             outdata[name]['url'] = resinfo['#text']
-            # print(resinfo)
 
             if '@size' in resinfo:
+                outdata[name]['size'] = resinfo['@size']
+
+            if '@duration' in resinfo:
+                outdata[name]['duration'] = resinfo['@duration']
+
+            if '@bitrate' in resinfo:
+                outdata[name]['bitrate'] = resinfo['@bitrate']
+
+            if '@sampleFrequency' in resinfo:
+                outdata[name]['sampleFrequency'] = resinfo['@sampleFrequency']
+
+            if '@nrAudioChannels' in resinfo:
+                outdata[name]['nrAudioChannels'] = resinfo['@nrAudioChannels']
+
+            if '@resolution' in resinfo:
+                outdata[name]['resolution'] = resinfo['@resolution']
+
+            if '@protocolInfo' in resinfo:
+                if 'video' in resinfo['@protocolInfo']:
+                    outdata[name]['type'] = 'video'
+
+                if 'audio' in resinfo['@protocolInfo']:
+                    outdata[name]['type'] = 'audio'
+
+                if 'pictures' in resinfo['@protocolInfo']:
+                    outdata[name]['type'] = 'pictures'
+
                 outdata[name]['size'] = resinfo['@size']
 
         return outdata
@@ -119,7 +153,7 @@ class DLNAFS(FS):
         if _path in [u'', u'.', u'/', u'./']:
             for device in self.devices:
                 if six.PY2:
-                    device = u''.join(str(device))
+                    device = unicode(device)
                 outlist.append(device)
             return outlist
 
@@ -130,22 +164,17 @@ class DLNAFS(FS):
         device = self.devices[devname]
         parent = self.parseall(device, 0)
 
-        # if len(pathiter) < 1:
-        #     last_data = parent
-
         for entry in pathiter:
-            # if not entry in parent:
-            #     print('Error',entry,'not in',parent)
-            # if not parent[entry]['folder']:
-            #     raise errors.DirectoryExpected(_path)
             if not entry in parent:
                 raise errors.ResourceNotFound(_path)
             parent = self.parseall(device, parent[entry]['id'])
 
         for name in parent:
+            if six.PY2:
+                name = unicode(name)
             outlist.append(name)
 
-        print(outlist)
+
         return outlist
 
     def getinfo(self, path, namespaces=None):
@@ -238,6 +267,9 @@ class DLNAFS(FS):
 
         child = parent[name]
         print(child)
+        response = SeekableHTTPFile(child['url'])
+        return RawWrapper(response, mode=mode)
+
 
     @classmethod
     def makedir(self, *args, **kwargs):

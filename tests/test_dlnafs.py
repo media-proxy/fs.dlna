@@ -10,10 +10,9 @@ import unittest
 import six
 from fs import ResourceType
 from fs import errors
-from six import text_type
-
 # from fs.opener import open_fs
 from fs.dlna import DLNAFS
+from six import text_type
 
 
 class TestDLNAFS(unittest.TestCase):
@@ -154,9 +153,9 @@ class TestDLNAFS(unittest.TestCase):
         print(self.fs.listdir(os.path.join('/', self.srvp, self.mf[0])))
         print(self.fs.listdir(os.path.join('/', self.srvp, self.pf[0])))
 
-        self.assertEqual(self.fs.listdir(os.path.join('/', self.srvp, self.vf[0], self.vf[1])), ['test_video'])
-        self.assertEqual(self.fs.listdir(os.path.join('/', self.srvp, self.mf[0], self.mf[1])), ['test_audio'])
-        self.assertEqual(self.fs.listdir(os.path.join('/', self.srvp, self.pf[0], self.pf[1])), ['test_picture'])
+        self.assertEqual(self.fs.listdir(os.path.join('/', self.srvp, self.vf[0], self.vf[1])), ['test_video.mp4'])
+        self.assertEqual(self.fs.listdir(os.path.join('/', self.srvp, self.mf[0], self.mf[1])), ['test_audio.mp3'])
+        self.assertEqual(self.fs.listdir(os.path.join('/', self.srvp, self.pf[0], self.pf[1])), ['test_picture.jpg'])
 
         with self.assertRaises(errors.ResourceNotFound):
             self.fs.listdir(os.path.join('/', self.srvp, 'foobar'))
@@ -176,7 +175,7 @@ class TestDLNAFS(unittest.TestCase):
         self.assertIsInstance(self.fs.__str__(), text_type)
 
     def test_getinfo(self):
-        return
+
         # Test special case of root directory
         # Root directory has a name of ''
         root_info = self.fs.getinfo('/')
@@ -189,11 +188,11 @@ class TestDLNAFS(unittest.TestCase):
             print('No DLNA Server to check')
             return
 
-        testdir = dirlist[0]
+        testdir = self.srvp
         # Check basic namespace
         info = self.fs.getinfo(testdir).raw
         self.assertIsInstance(info['basic']['name'], text_type)
-        self.assertEqual(info['basic']['name'], testdir)
+        self.assertEqual(info['basic']['name'], testdir[1:])
         self.assertTrue(info['basic']['is_dir'])
 
         # Get the info
@@ -213,7 +212,7 @@ class TestDLNAFS(unittest.TestCase):
         self.assertIsInstance(no_info, dict)
         self.assertEqual(
             no_info['basic'],
-            {'name': testdir, 'is_dir': True}
+            {'name': testdir[1:], 'is_dir': True}
         )
 
         # Check a number of standard namespaces
@@ -236,35 +235,19 @@ class TestDLNAFS(unittest.TestCase):
         # )
 
         ########################
-        info = self.fs.getinfo(u'/%s/%s' % (testdir, 'Pictures/a'), namespaces=['details']).raw
+        info = self.fs.getinfo(u'/%s/%s' % (testdir, self.vf[0]), namespaces=['details']).raw
         self.assertIsInstance(info, dict)
 
         self.assertEqual(
-            self.fs.listdir(u'/%s/%s' % (testdir, 'Pictures/a')),
-            ['b']
+            self.fs.listdir(u'/%s/%s/%s' % (testdir, self.vf[0], self.vf[1])),
+            [u'test_video.mp4']
         )
 
-        ########################
-        info = self.fs.getinfo(u'/%s/%s' % (testdir, 'Pictures/a/b'), namespaces=['details']).raw
-        self.assertIsInstance(info, dict)
-        self.assertEqual(
-            self.fs.listdir(u'/%s/%s' % (testdir, 'Pictures/a/b')),
-            ['c']
-        )
-        ###############
-        info = self.fs.getinfo(u'/%s/%s' % (testdir, 'Pictures/a/b/c'), namespaces=['details']).raw
-        self.assertIsInstance(info, dict)
-
-        info = self.fs.getinfo(u'/%s/%s' % (testdir, 'Pictures/a/b/c'), namespaces=['details']).raw
-        self.assertIsInstance(info, dict)
-        self.assertEqual(
-            self.fs.listdir(u'/%s/%s' % (testdir, 'Pictures/a/b/c')),
-            ['bmd.png']
-        )
+        self.assertEqual(self.fs.isfile(u'/%s/%s/%s/test_video.mp4' % (testdir, self.vf[0], self.vf[1])), True)
 
     def test_openbin(self):
-        return
-        testfile = os.path.join('/', self.srvp, self.vf[0], self.vf[1], 'test_video')
+
+        testfile = os.path.join('/', self.srvp, self.vf[0], self.vf[1], 'test_video.mp4')
 
         # Read a binary file
         if not self.fs.isfile(testfile):
