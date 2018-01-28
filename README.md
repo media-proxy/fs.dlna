@@ -1,6 +1,6 @@
 # fs.youtube
 
-[![Build Status](https://travis-ci.org/media-proxy/fs.dlna.svg?branch=master)](https://travis-ci.org/media-proxy/fs.dlna)
+[![Build Status](https://travis-ci.org/media-proxy/fs.dlna.svg?branch=master)](https://travis-ci.org/media-proxy/fs.dlna) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/bcd41855125941bdbe61413f53e502e9)](https://www.codacy.com/app/media-proxy/fs.dlna?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=media-proxy/fs.dlna&amp;utm_campaign=Badge_Grade)
 
 A PyFilesystem2 implementation for accessing DLNA Servers
 
