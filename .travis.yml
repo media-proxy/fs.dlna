@@ -15,7 +15,9 @@ addons:
   apt:
     packages:
     - minidlna
-    - python-libxml2
+    - libxml2-dev
+    - libxslt1-dev
+    - python-dev
 
 
 before_install:
