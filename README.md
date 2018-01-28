@@ -1,5 +1,6 @@
 # fs.youtube
 
+[![Build Status](https://travis-ci.org/media-proxy/fs.dlna.svg?branch=master)](https://travis-ci.org/media-proxy/fs.dlna)
 
 A PyFilesystem2 implementation for accessing DLNA Servers
 
