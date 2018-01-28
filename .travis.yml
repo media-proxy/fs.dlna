@@ -15,8 +15,8 @@ addons:
   apt:
     packages:
     - minidlna
-    - libxml2-dev
-    - libxslt1-dev
+    - python-libxml2
+
 
 before_install:
 - sudo service minidlna stop
