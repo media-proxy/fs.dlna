@@ -21,7 +21,7 @@ addons:
     - libxslt-dev
     - lib32z1-dev
     - python3-lxml
-    - build-dep
+    - build-essential
 
 before_install:
 - sudo service minidlna stop
