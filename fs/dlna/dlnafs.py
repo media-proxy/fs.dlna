@@ -72,9 +72,9 @@ class DLNAFS(FS):
             outdata[name] = {'id': c['@id'], 'folder': True, 'title': c['http://purl.org/dc/elements/1.1/:title']}
 
         # Scan Items
-        print('################')
-        print(json.dumps(items, indent=4))
-        print('################')
+        # print('################')
+        # print(json.dumps(items, indent=4))
+        # print('################')
         for i in items:
             if not 'urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/:res' in i:
                 continue
@@ -85,23 +85,25 @@ class DLNAFS(FS):
                     if '@protocolInfo' in e:
                         if '@size' in e:
                             if 'http-get' in e['@protocolInfo'] and 'DLNA.ORG_PN' in e['@protocolInfo']:
-                                print('######', e)
+                                # print('######', e)
                                 resinfo = e
             try:
                 extension = os.path.splitext(resinfo['#text'])[1]
             except:
                 extension = ''
             name = i['http://purl.org/dc/elements/1.1/:title'].replace(':', '').replace('/', '')
-            name = '%s%s' % (name, extension)
+            if not name.endswith(extension):
+                name = '%s%s' % (name, extension)
 
             outdata[name] = {'id': i['@id'], 'folder': False, 'title': i['http://purl.org/dc/elements/1.1/:title']}
+
+            outdata[name]['url'] = resinfo['#text']
 
             if type(resinfo) == list:
                 print('type(resinfo) == list,check this case')
                 print(json.dumps(resinfo, indent=4))
+                del(outdata[name])
                 continue
-
-            outdata[name]['url'] = resinfo['#text']
 
             if '@size' in resinfo:
                 outdata[name]['size'] = resinfo['@size']
