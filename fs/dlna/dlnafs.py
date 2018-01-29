@@ -220,6 +220,8 @@ class DLNAFS(FS):
                         raise errors.DirectoryExpected(_path)
 
                     parent = self.parseall(device, parent[entry]['id'])
+                if not name in parent:
+                    raise errors.ResourceNotFound(_path)
 
                 child = parent[name]
                 info_dict['basic'] = {
