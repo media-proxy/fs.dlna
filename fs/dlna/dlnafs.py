@@ -266,11 +266,14 @@ class DLNAFS(FS):
         for entry in pathiter:
             if not parent[entry]['folder']:
                 raise errors.DirectoryExpected(_path)
-
             parent = self.parseall(device, parent[entry]['id'])
 
         child = parent[name]
         print(child)
+        if not 'url' in child:
+            print('#################ERROR')
+            print('Need url in',child)
+            raise IOError
         response = SeekableHTTPFile(child['url'])
         return RawWrapper(response, mode=mode)
 
