@@ -97,13 +97,17 @@ class DLNAFS(FS):
 
             outdata[name] = {'id': i['@id'], 'folder': False, 'title': i['http://purl.org/dc/elements/1.1/:title']}
 
-            outdata[name]['url'] = resinfo['#text']
-
             if type(resinfo) == list:
                 print('type(resinfo) == list,check this case')
                 print(json.dumps(resinfo, indent=4))
                 del(outdata[name])
                 continue
+
+            if '#text' in resinfo:
+                print('resinfo[#text] missing')
+                print(json.dumps(resinfo, indent=4))
+            else:
+                outdata[name]['url'] = resinfo['#text']
 
             if '@size' in resinfo:
                 outdata[name]['size'] = resinfo['@size']
