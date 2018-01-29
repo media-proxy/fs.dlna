@@ -87,6 +87,22 @@ class DLNAFS(FS):
                             if 'http-get' in e['@protocolInfo'] and 'DLNA.ORG_PN' in e['@protocolInfo']:
                                 # print('######', e)
                                 resinfo = e
+
+            if type(resinfo) == list:
+                # print('#'*20)
+                # print('type(resinfo) == list,check this case')
+                # print(json.dumps(resinfo, indent=4))
+                # print('#'*20)
+
+                continue
+
+            if  not '#text' in resinfo:
+                print('#'*20)
+                print('resinfo[#text] missing: "%s"'%repr(resinfo))
+                print(json.dumps(resinfo, indent=4))
+                print('#'*20)
+                continue
+
             try:
                 extension = os.path.splitext(resinfo['#text'])[1]
             except:
@@ -96,18 +112,7 @@ class DLNAFS(FS):
                 name = '%s%s' % (name, extension)
 
             outdata[name] = {'id': i['@id'], 'folder': False, 'title': i['http://purl.org/dc/elements/1.1/:title']}
-
-            if type(resinfo) == list:
-                print('type(resinfo) == list,check this case')
-                print(json.dumps(resinfo, indent=4))
-                del(outdata[name])
-                continue
-
-            if '#text' in resinfo:
-                print('resinfo[#text] missing')
-                print(json.dumps(resinfo, indent=4))
-            else:
-                outdata[name]['url'] = resinfo['#text']
+            outdata[name]['url'] = resinfo['#text']
 
             if '@size' in resinfo:
                 outdata[name]['size'] = resinfo['@size']
