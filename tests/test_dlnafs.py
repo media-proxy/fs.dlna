@@ -230,14 +230,14 @@ class TestDLNAFS(unittest.TestCase):
             self.fs.getinfo('__notexists__')
 
         with self.assertRaises(errors.ResourceNotFound):
-            self.fs.getinfo(u'/%s/__notexists__' % (testdir)
+            self.fs.getinfo(u'/%s/__notexists__' % (testdir))
 
 
         with self.assertRaises(errors.ResourceNotFound):
-            self.fs.getinfo(u'/%s/%s/__notexists__' % (testdir,self.vf[0])
+            self.fs.getinfo(u'/%s/%s/__notexists__' % (testdir,self.vf[0]))
 
         with self.assertRaises(errors.ResourceNotFound):
-            self.fs.getinfo(u'/%s/%s/%s/__notexists__' % (testdir,self.vf[0],self.vf[1])
+            self.fs.getinfo(u'/%s/%s/%s/__notexists__' % (testdir,self.vf[0],self.vf[1]))
 
 
         # self.assertEqual(
