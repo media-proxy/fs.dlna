@@ -87,8 +87,10 @@ class DLNAFS(FS):
                             if 'http-get' in e['@protocolInfo'] and 'DLNA.ORG_PN' in e['@protocolInfo']:
                                 print('######', e)
                                 resinfo = e
-
-            extension = os.path.splitext(resinfo['#text'])[1]
+            try:
+                extension = os.path.splitext(resinfo['#text'])[1]
+            except:
+                extension = ''
             name = i['http://purl.org/dc/elements/1.1/:title'].replace(':', '').replace('/', '')
             name = '%s%s' % (name, extension)
 
