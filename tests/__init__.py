@@ -14,8 +14,8 @@ fs.opener.__path__.insert(0, os.path.realpath(
     os.path.join(__file__, '..', '..', 'fs', 'opener')))
 
 # Add additional openers to the entry points
-pkg_resources.get_entry_map('fs', 'fs.opener')['dlna'] = \
+pkg_resources.get_entry_map('fs', 'fs.dlna.opener')['dlna'] = \
     pkg_resources.EntryPoint.parse(
-        'dlna = fs.opener.dlnafs:DLNAOpener',
+        'dlna = fs.dlna.opener:DLNAOpener',
         dist=pkg_resources.get_distribution('fs')
     )
