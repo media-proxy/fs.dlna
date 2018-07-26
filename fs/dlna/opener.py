@@ -1,27 +1,36 @@
-
+# coding: utf-8
+"""`Youtube` opener definition.
+"""
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
 from fs.opener.base import Opener
 
-__author__ = "Martin Larralde <althonosdev@gmail.com>"
+__license__ = "MIT"
+__copyright__ = "Copyright (c) 2017 merlink01"
+__author__ = "merlink01"
+__version__ = 'dev'
+
+# Dynamically get the version of the main module
+try:
+    import pkg_resources
+
+    _name = __name__.replace('.opener', '')
+    __version__ = pkg_resources.get_distribution(_name).version
+except Exception:  # pragma: no cover
+    pkg_resources = None
+finally:
+    del pkg_resources
 
 
-class WebDAVOpener(Opener):
-    protocols = ['webdav']
+class DLNAOpener(Opener):
+    """`DLNA` opener.
+    """
 
-    def open_fs(self, fs_url, parse_result, writeable, create, cwd):
-        from .webdavfs import WebDAVFS
+    protocols = ['dlna']
 
-        webdav_host, _, dir_path = parse_result.resource.partition('/')
-        webdav_host, _, webdav_port = webdav_host.partition(':')
-        webdav_port = int(webdav_port) if webdav_port.isdigit() else 80
-        webdav_scheme = 'http' if webdav_port != 443 else 'https'
-
-        return WebDAVFS(
-            url='{}://{}:{}'.format(webdav_scheme, webdav_host, webdav_port),
-            login=parse_result.username,
-            password=parse_result.password,
-            root=dir_path,
-        )
-
+    @staticmethod
+    def open_fs(fs_url, parse_result, writeable, create, cwd):  # noqa: D102
+        from ..dlna import DLNAFS
+        dlna_fs = DLNAFS()
+        return dlna_fs

@@ -32,13 +32,11 @@ yt_fs = fs.open_fs('dlna:///')
 
 ```python
 import fs.dlna
-dlna_fs = fs.dlna.DLNAFS(timeout=10)
+dlna_fs = fs.dlna.DLNAFS()
 ```
 
 with each argument explained below:
 
-``timeout``
-  The Scantime for DLNA/UPNP Devices
 
 Once created, the ``DLNAFS`` filesystem behaves like any other filesystem
 (see the [Pyfilesystem2 documentation](<https://pyfilesystem2.readthedocs.io>)).
