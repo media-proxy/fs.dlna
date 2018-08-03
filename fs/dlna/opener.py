@@ -4,7 +4,7 @@
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
-from .base import Opener
+from fs.opener.base import Opener
 
 __license__ = "MIT"
 __copyright__ = "Copyright (c) 2017 merlink01"
