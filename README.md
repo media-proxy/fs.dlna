@@ -19,12 +19,12 @@ Usage
 
 ### Opener
 
-Use ``fs.open_fs`` to open a filesystem with an Youtube
+Use ``fs.open_fs`` to open a filesystem with a DLNA
 [FS URL](<https://pyfilesystem2.readthedocs.io/en/latest/openers.html>):
 
 ```python
 import fs
-yt_fs = fs.open_fs('dlna:///')
+dlna_fs = fs.open_fs('dlna:///')
 ```
 
 
