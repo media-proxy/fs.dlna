@@ -11,9 +11,10 @@ python:
 - pypy
 matrix:
   include:
-    - python: 3.7
-      dist: xenial
-      sudo: true
+    language: python
+    sudo: required
+    dist: xenial
+    python: "3.7"
 
 addons:
   apt:
