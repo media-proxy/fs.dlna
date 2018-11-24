@@ -62,10 +62,10 @@ class DLNAFS(FS):
         if 'urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/:item' in didl:
             items = didl['urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/:item']
 
-        if not isinstance(containers, (list):
+        if not isinstance(containers, (list)):
             containers = [containers]
                           
-        if not isinstance(items, (list):
+        if not isinstance(items, (list)):
             items = [items]
 
         # Scan Containers
@@ -82,7 +82,7 @@ class DLNAFS(FS):
                 continue
 
             resinfo = i['urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/:res']
-            if isinstance(resinfo, (list):
+            if isinstance(resinfo, (list)):
                 for e in resinfo:
                     if '@protocolInfo' in e:
                         if '@size' in e:
@@ -90,7 +90,7 @@ class DLNAFS(FS):
                                 # print('######', e)
                                 resinfo = e
 
-            if isinstance(resinfo, (list):
+            if isinstance(resinfo, (list)):
                 # print('#'*20)
                 # print('type(resinfo) == list,check this case')
                 # print(json.dumps(resinfo, indent=4))
