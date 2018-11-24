@@ -37,6 +37,7 @@ class DLNAFS(FS):
 
             self.devices[device.friendly_name] = device
 
+    @classmethod
     def parse(self, device, oid, start=0, count=100):
         xml = device.ContentDirectory.Browse(
             ObjectID=str(oid),
