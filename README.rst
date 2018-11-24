@@ -1,11 +1,20 @@
 fs.dlna
 =======
 
-`PyPI version <https://pypi.python.org/pypi/fs.dlnafs>`__ `Build
-Status <https://travis-ci.org/media-proxy/fs.dlna>`__ `Codacy
-Badge <https://www.codacy.com/app/media-proxy/fs.dlna?utm_source=github.com&utm_medium=referral&utm_content=media-proxy/fs.dlna&utm_campaign=Badge_Grade>`__
-`codecov <https://codecov.io/gh/media-proxy/fs.dlna>`__
-`Updates <https://pyup.io/repos/github/media-proxy/fs.dlna/>`__
+.. image:: https://badge.fury.io/py/fs.dlna.svg
+    :target: https://badge.fury.io/py/fs.dlna
+
+.. image:: https://travis-ci.org/media-proxy/fs.dlna.svg?branch=master
+    :target: https://travis-ci.org/media-proxy/fs.dlna
+    
+.. image:: https://api.codacy.com/project/badge/Grade/bcd41855125941bdbe61413f53e502e9
+    :target: https://www.codacy.com/app/media-proxy/fs.dlna?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=media-proxy/fs.dlna&amp;utm_campaign=Badge_Grade
+    
+.. image:: https://codecov.io/gh/media-proxy/fs.dlna/branch/master/graph/badge.svg
+    :target: https://codecov.io/gh/media-proxy/fs.dlna
+    
+.. image:: https://pyup.io/repos/github/media-proxy/fs.dlna/shield.svg
+    :target: https://pyup.io/repos/github/media-proxy/fs.dlna/
 
 A PyFilesystem2 implementation for accessing DLNA Servers
 
