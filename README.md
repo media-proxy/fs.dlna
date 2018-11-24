@@ -1,6 +1,6 @@
 # fs.dlna
 
-[![PyPI version](https://badge.fury.io/py/fs.dlnafs.svg)](https://pypi.python.org/pypi/fs.dlnafs) [![Build Status](https://travis-ci.org/media-proxy/fs.dlna.svg?branch=master)](https://travis-ci.org/media-proxy/fs.dlna) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/bcd41855125941bdbe61413f53e502e9)](https://www.codacy.com/app/media-proxy/fs.dlna?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=media-proxy/fs.dlna&amp;utm_campaign=Badge_Grade) [![codecov](https://codecov.io/gh/media-proxy/fs.dlna/branch/master/graph/badge.svg)](https://codecov.io/gh/media-proxy/fs.dlna) [![Updates](https://pyup.io/repos/github/media-proxy/fs.dlna/shield.svg)](https://pyup.io/repos/github/media-proxy/fs.dlna/)
+[![PyPI version](https://badge.fury.io/py/fs.dlna.svg)](https://pypi.python.org/pypi/fs.dlna) [![Build Status](https://travis-ci.org/media-proxy/fs.dlna.svg?branch=master)](https://travis-ci.org/media-proxy/fs.dlna) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/bcd41855125941bdbe61413f53e502e9)](https://www.codacy.com/app/media-proxy/fs.dlna?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=media-proxy/fs.dlna&amp;utm_campaign=Badge_Grade) [![codecov](https://codecov.io/gh/media-proxy/fs.dlna/branch/master/graph/badge.svg)](https://codecov.io/gh/media-proxy/fs.dlna) [![Updates](https://pyup.io/repos/github/media-proxy/fs.dlna/shield.svg)](https://pyup.io/repos/github/media-proxy/fs.dlna/)
 
 
 
